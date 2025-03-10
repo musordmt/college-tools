@@ -30,9 +30,10 @@ export default function MatchingComponent({
   title = "Quiz",
 }: QuizProps) {
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [score, setScore] = useState<number | null>(null);
-  const [correctAnswer, setCorrectAnswer] = useState<number | null>(null);
+  const [score, setScore] = useState<number>(0);
+  const [correctAnswer, setCorrectAnswer] = useState<number>(0);
   const [answers, setAnswers] = useState<string[]>([]);
+  const [scoreMessage, setScoreMessage] = useState<string>('');
 
   const handleSubmit = () => {
     if (isSubmitted) {
@@ -52,6 +53,14 @@ export default function MatchingComponent({
     const percentageScore = (correctAnswersCount / questions.length) * 100;
     setScore(percentageScore);
   };
+
+  const getMessage = (score: number) => {
+    if (score === 100) return "Perfect score! Congratulations!"
+    if (score >= 80) return "Great job! You did excellently!"
+    if (score >= 60) return "Good effort! You're on the right track."
+    if (score >= 40) return "Not bad, but there's room for improvement."
+    return "Keep practicing, you'll get better!"
+  }
 
   const answerArray = useMemo(() => questions.map((question) => question.answer), [questions]);
   const mixedAnswerArray = useMemo(() => {
@@ -86,7 +95,7 @@ export default function MatchingComponent({
             <CardContent className="p-4 text-center">
               <div className="text-4xl font-bold ">{`${score}`}</div>
               <div className="text-base font-light opacity-50">{`${correctAnswer} out of 4 correct`}</div>
-              <div className="mt-4">{correctAnswer !== questions.length ? "Keep practicing, you'll get better!" : "Wonderfull!!!"}</div>
+              <div className="mt-4">{getMessage(score)}</div>
             </CardContent>
           </Card>}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
