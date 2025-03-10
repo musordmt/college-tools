@@ -1,6 +1,16 @@
 import { z } from "zod";
 
-export const questionSchema = z.object({
+export const matchingSchema = z.object({
+  question: z.string(),
+  answer: z.string(),
+});
+
+export const flashcardSchema = z.object({
+  question: z.string(),
+  answer: z.string(),
+});
+
+export const quizSchema = z.object({
   question: z.string(),
   options: z
     .array(z.string())
@@ -15,6 +25,11 @@ export const questionSchema = z.object({
     ),
 });
 
-export type Question = z.infer<typeof questionSchema>;
+export type Quiz = z.infer<typeof quizSchema>;
+export type Flashcard = z.infer<typeof flashcardSchema>;
+export type Matching = z.infer<typeof matchingSchema>;
 
-export const questionsSchema = z.array(questionSchema).length(4);
+
+export const quizsSchema = z.array(quizSchema).length(4);
+export const flashcardsSchema = z.array(flashcardSchema).length(4);
+export const matchingsSchema = z.array(matchingSchema).length(4)
