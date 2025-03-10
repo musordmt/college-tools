@@ -97,7 +97,7 @@ export default function MatchingComponent({
                   <ul>
                     {questions.map((question, index) => {
                       return (
-                        <li>{`Question${index + 1}: ${question.question}`}</li>
+                        <li key={`match-question-${index}`}>{`Question${index + 1}: ${question.question}`}</li>
                       )
                     })}
                   </ul>
@@ -108,7 +108,7 @@ export default function MatchingComponent({
                 <CardContent>
                   {mixedAnswerArray.map((answer, index) => {
                     return (
-                      <div className="text-base">{`${index + 1}: ${answer}`}</div>
+                      <div key={`match-answer-${index}`}className="text-base">{`${index + 1}: ${answer}`}</div>
                     )
                   })}
                 </CardContent>
@@ -122,7 +122,7 @@ export default function MatchingComponent({
                 <CardContent className="h-full flex flex-col justify-between">
                   <div className="flex flex-col gap-2">
                     {questions.map((_, index) => {
-                      return (<div className="flex flex-row gap-2 text-center justify-center items-center">
+                      return (<div key={`match-choose-${index}`} className="flex flex-row gap-2 text-center justify-center items-center">
                         <Label>{`Question${index + 1}:`} </Label>
                         <RadioGroup
                           value={answers[index]}
@@ -131,7 +131,7 @@ export default function MatchingComponent({
                           disabled={isSubmitted}
                         >
                           {mixedAnswerArray.map((answer, answerIndex) =>
-                            <div className="flex items-center space-x-2">
+                            <div key={`match-choose-${index}-${answerIndex}`}  className="flex items-center space-x-2">
                               <RadioGroupItem value={answer} id={`${index + 1}-${answerIndex + 1}`} />
                               <label htmlFor="quiz">{`${answerIndex + 1}`}</label>
                             </div>)}
